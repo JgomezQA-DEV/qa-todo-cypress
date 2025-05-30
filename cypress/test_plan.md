@@ -1,49 +1,76 @@
 # QA Test Plan – Todo List Application
 
+## Table of Contents
+1. [Purpose](#purpose)
+2. [Tech Stack](#tech-stack)
+3. [Test Scenarios Covered](#test-scenarios-covered)
+4. [Acceptance Criteria](#acceptance-criteria)
+5. [Environment Setup](#environment-setup)
+6. [Potential Extensions](#potential-extensions)
+
+---
+
 ## Purpose
 
-This test plan documents the quality assurance strategy applied to a simple React-based Todo List application.  
-It demonstrates the tester's ability to define critical user flows, validate expected behavior, and cover edge cases using Cypress for end-to-end test automation.
+This test plan documents the quality assurance strategy for a simple React-based Todo List application.  
+It demonstrates the tester's ability to define critical user flows, validate expected behaviors, and handle edge cases using Cypress for end-to-end test automation.
+
+---
 
 ## Tech Stack
 
-- Testing Framework: Cypress
-- Target Application: React + Vite
-- Language: JavaScript (ES6)
-- Client-side Storage: localStorage
-- CI Pipeline: GitHub Actions (planned)
+- **Testing Framework**: Cypress  
+- **Target Application**: React + Vite  
+- **Language**: JavaScript (ES6)  
+- **Client-side Storage**: `localStorage`  
+- **CI Pipeline**: GitHub Actions *(planned)*
+
+---
 
 ## Test Scenarios Covered
 
 ### 1. Task Creation
-- User can enter a task in the input field and click "Add"
-- The task appears immediately in the task list
+- Add a task by typing into the input field and clicking the **Add** button  
+- Display the newly added task in the list immediately
 
 ### 2. Task Deletion
-- A task can be removed by clicking its associated delete button
-- The task disappears from the interface after deletion
+- Remove a task by clicking its delete button  
+- Ensure the task disappears from the interface
 
 ### 3. Task Completion
-- A task can be marked as completed
-- The interface reflects this change through a visual indicator (e.g., line-through or specific CSS class)
+- Mark a task as completed via the checkbox  
+- Display visual feedback (e.g., line-through or completed class)
 
 ### 4. Edge Cases
-- Empty Input: The "Add" button remains disabled when the input field is empty
-- Long Task: Tasks with over 300 characters can be added
-- Duplicate Tasks: The same task content can be added multiple times
+- **Empty Input**: Prevent the user from clicking **Add** with an empty string  
+- **Long Task Input**: Allow adding tasks with more than 300 characters  
+- **Duplicate Tasks**: Permit adding the same task content multiple times
 
 ### 5. Data Persistence
-- After a full page reload, tasks persist in the interface
-- This confirms the use of localStorage or equivalent persistence mechanism
+- Reload the page and confirm all tasks are still visible  
+- Validate data is stored and reloaded correctly via `localStorage`
+
+---
 
 ## Acceptance Criteria
 
-- All test cases pass reliably through Cypress automation
-- The UI updates consistently in response to user interactions
-- The application maintains a valid and predictable state throughout all tested actions
+- All test cases execute successfully through Cypress automation  
+- The UI updates accurately and predictably based on user interactions  
+- The application maintains a consistent internal state throughout testing
+
+---
+
+## Environment Setup
+
+- Node.js and npm installed  
+- Front-end app running locally on `http://localhost:5173`  
+- Cypress launched via `npx cypress open`
+
+---
 
 ## Potential Extensions
 
-- Accessibility testing (a11y)
-- Performance or load testing
-- API-level tests and negative scenarios (if applicable)
+- Accessibility testing (a11y) for keyboard navigation and ARIA compliance  
+- Performance testing under heavy task lists  
+- API-level testing (if backend exists in future)  
+- Visual regression testing for future UI changes
