@@ -42,7 +42,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: cypress-report
-          path: cypress/reports/index_*.html
+          path: cypress/reports/index.html
 
       - name: Upload screenshots
         if: always()
