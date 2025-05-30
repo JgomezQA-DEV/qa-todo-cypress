@@ -1,4 +1,4 @@
-name: E2E Tests
+name: E2E Tests & Deploy Report
 
 on:
   push:
@@ -35,18 +35,14 @@ jobs:
           npx cypress run \
             --reporter cypress-mochawesome-reporter \
             --reporter-options reportDir=cypress/reports,overwrite=true,html=true,json=true
-        continue-on-error: true
 
-      - name: Upload HTML report
+      - name: Show generated reports (debug)
         if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: cypress-report
-          path: cypress/reports/index.html
+        run: ls -R cypress/reports
 
-      - name: Upload screenshots
+      - name: Deploy report to GitHub Pages
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          name: cypress-screenshots
-          path: cypress/screenshots
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./cypress/reports
