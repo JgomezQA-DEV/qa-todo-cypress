@@ -67,6 +67,38 @@ The following folders are present by default but are not currently used in this 
 
 They can be leveraged in future improvements for mocking data or creating reusable test commands.
 
+## Continuous Integration (CI)
+
+This project integrates a complete **end-to-end test automation pipeline** using [Cypress](https://www.cypress.io/) and **GitHub Actions**.
+
+Every push or pull request to the `main` branch triggers a CI workflow that performs the following steps:
+
+1. **Install dependencies** using `npm ci`
+2. **Start the development server** (Vite)
+3. **Run all Cypress tests**
+4. **Generate a full HTML report** with [Mochawesome](https://github.com/adamgruber/mochawesome)
+5. **Upload test artifacts**, including:
+   - The HTML test report (merged from all specs)
+   - Screenshots of failing tests (if any)
+
+### CI Workflow Summary
+
+| Step                         | Description                                           |
+|-----------------------------|-------------------------------------------------------|
+| `npm ci`                    | Installs exact lockfile dependencies                  |
+| `npm run dev` + `wait-on`   | Launches the app and waits for availability           |
+| `npx cypress run`           | Executes all `.cy.js` tests                           |
+| `mochawesome`               | Generates detailed HTML + JSON reports                |
+| `upload-artifact`           | Makes reports and screenshots downloadable            |
+
+### CI Artifacts
+
+After each run, you'll find downloadable files in the **GitHub Actions tab**:
+
+- `cypress-report` → Complete HTML test report
+- `cypress-screenshots` → Visual evidence of failures
+
+
 ---
 
 This test project is part of my freelance QA portfolio. If you’re a potential client or collaborator, feel free to reach out to discuss how I can help improve your software quality.
