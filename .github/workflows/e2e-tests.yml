@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
         uses: actions/setup-node@v3
@@ -22,17 +22,30 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Clean previous reports
+        run: rm -rf cypress/reports/*
+
       - name: Start Vite dev server
         run: |
           npm run dev &
           npx wait-on http://localhost:5173
 
       - name: Run Cypress tests
-        run: npx cypress run
+        run: |
+          npx cypress run \
+            --reporter cypress-mochawesome-reporter \
+            --reporter-options reportDir=cypress/reports,overwrite=true,html=true,json=true
 
-      - name: Upload test report
+      - name: Upload HTML report
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: cypress-report
-          path: cypress/reports/mochawesome.html
+          path: cypress/reports/index_*.html
+
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
