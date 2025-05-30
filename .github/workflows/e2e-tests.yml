@@ -30,8 +30,8 @@ jobs:
       - name: Run Cypress tests
         run: npx cypress run
 
-      - name: Upload test report (fallback uploader)
-        uses: actions-rs/upload-artifact@v1
+      - name: Upload test report
+        uses: actions/upload-artifact@v3
         with:
           name: cypress-report
           path: cypress/reports/mochawesome.html
